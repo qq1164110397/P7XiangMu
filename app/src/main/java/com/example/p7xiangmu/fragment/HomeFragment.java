@@ -16,17 +16,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.p7xiangmu.R;
 import com.example.p7xiangmu.ShouActicty;
 import com.example.p7xiangmu.beans.HomeBean;
+import com.example.p7xiangmu.contract.MainContract;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements MainContract.IMainView {
 
     private RecyclerView rlv;
     private Banner banner;
     private ImageView img;
     private ArrayList<HomeBean.DataBean.BannerBean> bannerlist;
+    private ArrayList<HomeBean.DataBean.BrandListBean> brandlist;
 
     @Nullable
     @Override
@@ -36,7 +38,12 @@ public class HomeFragment extends Fragment {
         banner = view.findViewById(R.id.banner);
         img = view.findViewById(R.id.img);
         initView();
+        initData();
         return view;
+    }
+
+    private void initData() {
+
     }
 
     private void initView() {
@@ -48,6 +55,11 @@ public class HomeFragment extends Fragment {
         });
 
         bannerlist = new ArrayList<>();
-        new ArrayList<>();
+        brandlist = new ArrayList<>();
+    }
+
+    @Override
+    public void getData(HomeBean homeBean) {
+
     }
 }
