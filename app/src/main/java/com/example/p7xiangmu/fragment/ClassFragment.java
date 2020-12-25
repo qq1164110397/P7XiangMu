@@ -11,11 +11,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.p7xiangmu.R;
 
-public class GouWuFragment extends Fragment {
+public class ClassFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.gouwu_fragment, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.feilei_fragment, null);
         return view;
     }
 }
