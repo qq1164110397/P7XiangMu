@@ -48,7 +48,7 @@ public class Item3Adapter extends DelegateAdapter.Adapter {
         ViewHolder viewHolder = (ViewHolder) holder;
         Glide.with(context).load(list.get(position).getList_pic_url()).into(viewHolder.img);
         viewHolder.name.setText(list.get(position).getName());
-        viewHolder.name.setText("￥"+list.get(position).getRetail_price());
+        viewHolder.price.setText("￥"+list.get(position).getRetail_price());
     }
 
     @Override

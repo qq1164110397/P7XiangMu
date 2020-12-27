@@ -1,6 +1,7 @@
 package com.example.p7xiangmu.adapters;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +20,12 @@ import com.example.p7xiangmu.beans.HomeBean;
 
 import java.util.ArrayList;
 
-public class Item2Adapter extends DelegateAdapter.Adapter {
-
+public class Item4Adapter extends DelegateAdapter.Adapter {
     private GridLayoutHelper gridLayoutHelper;
-    private ArrayList<HomeBean.DataBean.BrandListBean> list;
+    private ArrayList<HomeBean.DataBean.HotGoodsListBean> list;
     private Context context;
 
-    public Item2Adapter(GridLayoutHelper gridLayoutHelper, ArrayList<HomeBean.DataBean.BrandListBean> list, Context context) {
+    public Item4Adapter(GridLayoutHelper gridLayoutHelper, ArrayList<HomeBean.DataBean.HotGoodsListBean> list, Context context) {
         this.gridLayoutHelper = gridLayoutHelper;
         this.list = list;
         this.context = context;
@@ -39,16 +39,17 @@ public class Item2Adapter extends DelegateAdapter.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item2_layout, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item4_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        Glide.with(context).load(list.get(position).getNew_pic_url()).into(viewHolder.img);
+        Glide.with(context).load(list.get(position).getList_pic_url()).into(viewHolder.img);
         viewHolder.name.setText(list.get(position).getName());
-        viewHolder.price.setText(list.get(position).getFloor_price()+"元起");
+        viewHolder.util.setText(list.get(position).getGoods_brief());
+        viewHolder.price.setText("￥"+list.get(position).getRetail_price());
     }
 
     @Override
@@ -59,12 +60,14 @@ public class Item2Adapter extends DelegateAdapter.Adapter {
     private class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
         TextView name;
+        TextView util;
         TextView price;
         public ViewHolder(View view) {
             super(view);
             img = view.findViewById(R.id.img);
-            name = view.findViewById(R.id.txt);
-            price = view.findViewById(R.id.txt2);
+            name = view.findViewById(R.id.txt_name);
+            util = view.findViewById(R.id.txt_util);
+            price = view.findViewById(R.id.txt_price);
         }
     }
 }

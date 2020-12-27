@@ -22,6 +22,8 @@ import com.example.p7xiangmu.adapters.BannerAdapter;
 import com.example.p7xiangmu.adapters.Item1Adapter;
 import com.example.p7xiangmu.adapters.Item2Adapter;
 import com.example.p7xiangmu.adapters.Item3Adapter;
+import com.example.p7xiangmu.adapters.Item4Adapter;
+import com.example.p7xiangmu.adapters.Item5Adapter;
 import com.example.p7xiangmu.beans.HomeBean;
 import com.example.p7xiangmu.contract.MainContract;
 import com.example.p7xiangmu.prestrent.MainPrestrent;
@@ -46,6 +48,10 @@ public class HomeFragment extends Fragment implements MainContract.IMainView{
     private Item2Adapter item2Adapter;
     private ArrayList<HomeBean.DataBean.NewGoodsListBean> newgoodlist;
     private Item3Adapter item3Adapter;
+    private ArrayList<HomeBean.DataBean.HotGoodsListBean> hotGoodsList;
+    private Item4Adapter item4Adapter;
+    private Item5Adapter item5Adapter;
+    private ArrayList<HomeBean.DataBean.TopicListBean> topicList;
 
     @Nullable
     @Override
@@ -98,6 +104,8 @@ public class HomeFragment extends Fragment implements MainContract.IMainView{
         helper2.setSpanCount(2);// 设置每行多少个网格
 
         initONE();
+        initTWO();
+        initSHREE();
 
         bannerAdapter = new BannerAdapter(linearLayoutHelper,bannerlist,getActivity());
         item1Adapter = new Item1Adapter(helper,channellist,getActivity());
@@ -106,27 +114,44 @@ public class HomeFragment extends Fragment implements MainContract.IMainView{
         initAdapter();
     }
 
-    private void initAdapter() {
-        adapter = new DelegateAdapter(virtualLayoutManager);
-        adapter.addAdapter(bannerAdapter);
-        adapter.addAdapter(item1Adapter);
-        adapter.addAdapter(item2Adapter);
-        adapter.addAdapter(item3Adapter);
-        rlv.setLayoutManager(virtualLayoutManager);
-        rlv.setAdapter(adapter);
+    private void initTWO() {
+        GridLayoutHelper helper4 = new GridLayoutHelper(3);
+        helper4.setItemCount(4);// 设置布局里Item个数
+        helper4.setAspectRatio(2);// 设置设置布局内每行布局的宽与高的比
+//        helper.setPadding(10,10,10,10);
+//        helper.setMargin(10,10,10,10);
+        helper4.setWeights(new float[]{100,100});//设置每行中 每个网格宽度 占 每行总宽度 的比例
+        helper4.setAutoExpand(false);//是否自动填充空白区域
+        helper4.setSpanCount(1);// 设置每行多少个网格
+
+        item4Adapter = new Item4Adapter(helper4,hotGoodsList,getActivity());
+
     }
 
     private void initONE() {
         GridLayoutHelper helper3 = new GridLayoutHelper(3);
         helper3.setItemCount(4);// 设置布局里Item个数
         helper3.setAspectRatio(2);// 设置设置布局内每行布局的宽与高的比
-//        helper.setPadding(10,10,10,10);
-//        helper.setMargin(10,10,10,10);
+        helper.setPadding(20,20,20,20);
+        helper.setMargin(10,10,10,10);
         helper3.setWeights(new float[]{50,50});//设置每行中 每个网格宽度 占 每行总宽度 的比例
         helper3.setAutoExpand(false);//是否自动填充空白区域
         helper3.setSpanCount(2);// 设置每行多少个网格
 
         item3Adapter = new Item3Adapter(helper3, newgoodlist,getActivity());
+    }
+
+    private void initSHREE() {
+        LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
+        linearLayoutHelper.setItemCount(1);// 设置布局里Item个数
+        linearLayoutHelper.setPadding(10,10,10,10);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
+        linearLayoutHelper.setMargin(10,10,10,10);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
+        linearLayoutHelper.setAspectRatio(1);// 设置设置布局内每行布局的宽与高的比
+
+        // linearLayoutHelper特有属性
+        linearLayoutHelper.setDividerHeight(1); // 设置每行Item的距离
+
+        item5Adapter = new Item5Adapter(topicList,getActivity(),linearLayoutHelper);
     }
 
     private void initView() {
@@ -138,7 +163,20 @@ public class HomeFragment extends Fragment implements MainContract.IMainView{
         channellist = new ArrayList<>();
         brandlist = new ArrayList<>();
         newgoodlist = new ArrayList<>();
-        
+        hotGoodsList = new ArrayList<>();
+        topicList = new ArrayList<>();
+    }
+
+    private void initAdapter() {
+        adapter = new DelegateAdapter(virtualLayoutManager);
+        adapter.addAdapter(bannerAdapter);
+        adapter.addAdapter(item1Adapter);
+        adapter.addAdapter(item2Adapter);
+        adapter.addAdapter(item3Adapter);
+        adapter.addAdapter(item4Adapter);
+        adapter.addAdapter(item5Adapter);
+        rlv.setLayoutManager(virtualLayoutManager);
+        rlv.setAdapter(adapter);
     }
 
     @Override
@@ -155,6 +193,11 @@ public class HomeFragment extends Fragment implements MainContract.IMainView{
         newgoodlist.addAll(homeBean.getData().getNewGoodsList());
         item3Adapter.notifyDataSetChanged();
 
+        hotGoodsList.addAll(homeBean.getData().getHotGoodsList());
+        item4Adapter.notifyDataSetChanged();
+
+        topicList.addAll(homeBean.getData().getTopicList());
+        item5Adapter.notifyDataSetChanged();
     }
 
     @Override
