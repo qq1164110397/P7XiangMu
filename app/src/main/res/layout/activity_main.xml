@@ -21,6 +21,7 @@
         tools:ignore="MissingConstraints" >
 
         <RadioButton
+            android:checked="true"
             android:gravity="center"
             android:button="@null"
             android:drawableTop="@drawable/btn_draw"
