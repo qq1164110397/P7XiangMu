@@ -1,6 +1,7 @@
 package com.example.p7xiangmu.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,12 +25,14 @@ import com.example.p7xiangmu.adapters.Item2Adapter;
 import com.example.p7xiangmu.adapters.Item3Adapter;
 import com.example.p7xiangmu.adapters.Item4Adapter;
 import com.example.p7xiangmu.adapters.Item5Adapter;
+import com.example.p7xiangmu.adapters.Item6Adapter;
 import com.example.p7xiangmu.beans.HomeBean;
 import com.example.p7xiangmu.contract.MainContract;
 import com.example.p7xiangmu.prestrent.MainPrestrent;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment implements MainContract.IMainView{
 
@@ -52,6 +55,10 @@ public class HomeFragment extends Fragment implements MainContract.IMainView{
     private Item4Adapter item4Adapter;
     private Item5Adapter item5Adapter;
     private ArrayList<HomeBean.DataBean.TopicListBean> topicList;
+    private Item6Adapter item6Adapter;
+    private ArrayList<HomeBean.DataBean.CategoryListBean.GoodsListBean> goodlist;
+    private ArrayList<HomeBean.DataBean.CategoryListBean> catelist;
+    private ArrayList<HomeBean.DataBean.CategoryListBean> categoryListBeans;
 
     @Nullable
     @Override
@@ -106,6 +113,7 @@ public class HomeFragment extends Fragment implements MainContract.IMainView{
         initONE();
         initTWO();
         initSHREE();
+        initFOUR();
 
         bannerAdapter = new BannerAdapter(linearLayoutHelper,bannerlist,getActivity());
         item1Adapter = new Item1Adapter(helper,channellist,getActivity());
@@ -154,6 +162,19 @@ public class HomeFragment extends Fragment implements MainContract.IMainView{
         item5Adapter = new Item5Adapter(topicList,getActivity(),linearLayoutHelper);
     }
 
+    private void initFOUR() {
+        GridLayoutHelper helper5 = new GridLayoutHelper(3);
+        helper5.setItemCount(4);// 设置布局里Item个数
+        helper5.setAspectRatio(2);// 设置设置布局内每行布局的宽与高的比
+//        helper.setPadding(10,10,10,10);
+//        helper.setMargin(10,10,10,10);
+        helper5.setWeights(new float[]{50,50});//设置每行中 每个网格宽度 占 每行总宽度 的比例
+        helper5.setAutoExpand(false);//是否自动填充空白区域
+        helper5.setSpanCount(2);// 设置每行多少个网格
+
+        item6Adapter = new Item6Adapter(goodlist,getActivity(),helper5,catelist);
+    }
+
     private void initView() {
 
         MainPrestrent mainPrestrent = new MainPrestrent(this);
@@ -165,6 +186,8 @@ public class HomeFragment extends Fragment implements MainContract.IMainView{
         newgoodlist = new ArrayList<>();
         hotGoodsList = new ArrayList<>();
         topicList = new ArrayList<>();
+        goodlist = new ArrayList<>();
+        catelist = new ArrayList<>();
     }
 
     private void initAdapter() {
@@ -175,6 +198,7 @@ public class HomeFragment extends Fragment implements MainContract.IMainView{
         adapter.addAdapter(item3Adapter);
         adapter.addAdapter(item4Adapter);
         adapter.addAdapter(item5Adapter);
+        adapter.addAdapter(item6Adapter);
         rlv.setLayoutManager(virtualLayoutManager);
         rlv.setAdapter(adapter);
     }
@@ -198,6 +222,43 @@ public class HomeFragment extends Fragment implements MainContract.IMainView{
 
         topicList.addAll(homeBean.getData().getTopicList());
         item5Adapter.notifyDataSetChanged();
+
+        categoryListBeans = new ArrayList<>();
+
+        List<HomeBean.DataBean.CategoryListBean> categoryList = fristBean.getData().getCategoryList();
+        categoryListBeans.clear();
+        categoryListBeans.addAll(categoryList);
+        for (int i = 0; i < categoryListBeans.size(); i++) {
+            String name = categoryListBeans.get(i).getName();
+            fristCateHeaderAdapter1 = new FristCateHeaderAdapter(getActivity(), name, linearLayoutHelper1);
+            fristCateHeaderAdapter1.notifyDataSetChanged();
+
+
+            GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(2);
+            // 在构造函数设置每行的网格个数
+
+            // 公共属性
+            gridLayoutHelper.setItemCount(7);// 设置布局里Item个数
+//        gridLayoutHelper.setPadding(20, 20, 20, 20);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
+//        gridLayoutHelper.setMargin(20, 20, 20, 20);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
+
+//        gridLayoutHelper.setAspectRatio(6);// 设置设置布局内每行布局的宽与高的比
+
+            // gridLayoutHelper特有属性（下面会详细说明）
+            gridLayoutHelper.setWeights(new float[]{50,50});//设置每行中 每个网格宽度 占 每行总宽度 的比例
+            gridLayoutHelper.setVGap(5);// 控制子元素之间的垂直间距
+            gridLayoutHelper.setHGap(5);// 控制子元素之间的水平间距
+            gridLayoutHelper.setAutoExpand(false);//是否自动填充空白区域
+            gridLayoutHelper.setSpanCount(2);// 设置每行多少个网格
+            gridLayoutHelper.setBgColor(Color.WHITE);// 设置背景颜色
+
+
+
+            List<FristBean.DataBean.CategoryListBean.GoodsListBean> goodsList = categoryListBeans.get(i).getGoodsList();
+            fristCateAdapter = new FristCateAdapter(getActivity(),(ArrayList<FristBean.DataBean.CategoryListBean.GoodsListBean>) goodsList,gridLayoutHelper);
+            adapter.addAdapter(fristCateHeaderAdapter1);
+            adapter.addAdapter(fristCateAdapter);
+        }
     }
 
     @Override
