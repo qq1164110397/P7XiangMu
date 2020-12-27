@@ -83,7 +83,7 @@ public class HomeFragment extends Fragment implements MainContract.IMainView{
         helper.setItemCount(1);
         helper.setPadding(10,10,10,10);
         helper.setMargin(10,10,10,10);
-        helper.setAspectRatio(2);
+        helper.setAspectRatio(3);
         helper.setWeights(new float[]{20,20,20,20});
         helper.setVGap(20);
         helper.setHGap(20);
@@ -103,11 +103,15 @@ public class HomeFragment extends Fragment implements MainContract.IMainView{
         item1Adapter = new Item1Adapter(helper,channellist,getActivity());
         item2Adapter = new Item2Adapter(helper2,brandlist,getActivity());
 
+        initAdapter();
+    }
 
+    private void initAdapter() {
         adapter = new DelegateAdapter(virtualLayoutManager);
         adapter.addAdapter(bannerAdapter);
         adapter.addAdapter(item1Adapter);
         adapter.addAdapter(item2Adapter);
+        adapter.addAdapter(item3Adapter);
         rlv.setLayoutManager(virtualLayoutManager);
         rlv.setAdapter(adapter);
     }
@@ -115,7 +119,9 @@ public class HomeFragment extends Fragment implements MainContract.IMainView{
     private void initONE() {
         GridLayoutHelper helper3 = new GridLayoutHelper(3);
         helper3.setItemCount(4);// 设置布局里Item个数
-        helper3.setAspectRatio(3);// 设置设置布局内每行布局的宽与高的比
+        helper3.setAspectRatio(2);// 设置设置布局内每行布局的宽与高的比
+//        helper.setPadding(10,10,10,10);
+//        helper.setMargin(10,10,10,10);
         helper3.setWeights(new float[]{50,50});//设置每行中 每个网格宽度 占 每行总宽度 的比例
         helper3.setAutoExpand(false);//是否自动填充空白区域
         helper3.setSpanCount(2);// 设置每行多少个网格
@@ -132,6 +138,7 @@ public class HomeFragment extends Fragment implements MainContract.IMainView{
         channellist = new ArrayList<>();
         brandlist = new ArrayList<>();
         newgoodlist = new ArrayList<>();
+        
     }
 
     @Override
