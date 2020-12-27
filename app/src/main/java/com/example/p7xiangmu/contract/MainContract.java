@@ -1,7 +1,7 @@
 package com.example.p7xiangmu.contract;
 
 import com.example.p7xiangmu.beans.HomeBean;
-import com.example.p7xiangmu.net.INetCallBack;
+import com.example.p7xiangmu.utils.INetCallBack;
 
 public class MainContract {
 
@@ -10,12 +10,11 @@ public class MainContract {
     }
 
     public interface IMainPrestrent{
-        void OnScruess(HomeBean homeBean);
-
-        void OnFail(String error);
+        void getBanner();
     }
 
     public interface IMainView{
-        void getData(HomeBean homeBean);
+        void OnSrucess(HomeBean homeBean);
+        void OnFail(String eror);
     }
 }

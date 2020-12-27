@@ -382,7 +382,7 @@ public class HomeBean {
             private String pic_url;
             private int sort_order;
             private int is_show;
-            private int floor_price;
+            private double floor_price;
             private String app_list_pic_url;
             private int is_new;
             private String new_pic_url;
@@ -444,7 +444,7 @@ public class HomeBean {
                 this.is_show = is_show;
             }
 
-            public int getFloor_price() {
+            public double getFloor_price() {
                 return floor_price;
             }
 
@@ -516,7 +516,7 @@ public class HomeBean {
             private String item_pic_url;
             private String subtitle;
             private int topic_category_id;
-            private int price_info;
+            private double price_info;
             private String read_count;
             private String scene_pic_url;
             private int topic_template_id;
@@ -580,7 +580,7 @@ public class HomeBean {
                 this.topic_category_id = topic_category_id;
             }
 
-            public int getPrice_info() {
+            public double getPrice_info() {
                 return price_info;
             }
 
@@ -683,7 +683,7 @@ public class HomeBean {
                 private int id;
                 private String name;
                 private String list_pic_url;
-                private int retail_price;
+                private double retail_price;
 
                 public int getId() {
                     return id;
@@ -709,7 +709,7 @@ public class HomeBean {
                     this.list_pic_url = list_pic_url;
                 }
 
-                public int getRetail_price() {
+                public double getRetail_price() {
                     return retail_price;
                 }
 

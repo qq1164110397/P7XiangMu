@@ -38,37 +38,73 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation 'com.google.code.gson:gson:2.2.4'
+
 //侧滑菜单，tablayout，recyclerview
     implementation  'com.android.support:design:30.0.0'
 
+//图片
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
+//banner
     implementation 'com.youth.banner:banner:1.4.10'  //最新版本
 
+//卡片
     implementation 'com.android.support:cardview-v7:30.0.0'
 
+//okhttp
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-
 
     //SmartRefreshLayout
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-7'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.4-7'
 
-//动态权限申请
-    implementation 'pub.devrel:easypermissions:3.0.0'
-
-
+//retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'//Retrofit依赖
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0' // 可选依赖，解析json字符所用
 
+//rxjava+retrofit
+    implementation "io.reactivex.rxjava2:rxjava:2.1.3" // 必要rxjava2依赖
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.1" // 必要rxandrroid依赖，切线程时需要用到
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0' // 必要依赖，和Rxjava和Retrofit结合必须用到，下面会提到
 
-//RxJava使用
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'//retrofit 库
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'//转换器，请求结果转换成Model
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'//配合Rxjava 使用
+//eventbus
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
+//动态权限
+    implementation 'com.github.dfqin:grantor:1.1.0'
+    //um
+    implementation "com.umeng.umsdk:common:9.1.0"
+    implementation "com.umeng.umsdk:asms:1.1.3" // asms包依赖(必选)
+    implementation "com.umeng.umsdk:crash:0.0.4" // native crash包依赖(必选)
+
+    implementation  'com.umeng.umsdk:share-core:7.0.2'
+    implementation  'com.umeng.umsdk:share-board:7.0.2'
+    implementation  'com.umeng.umsdk:share-wx:7.0.2'
+    //三方分享平台 其他不包括的需要jar包实现
+    /*implementation  'com.umeng.umsdk:share-qq:7.0.2'
+
+    implementation  'com.umeng.umsdk:share-sina:7.0.2'
+    implementation  'com.umeng.umsdk:share-alipay:7.0.2'
+    implementation  'com.umeng.umsdk:share-dingding:7.0.2'
+*/
+    allprojects {
+        repositories {
+            maven { url 'https://dl.bintray.com/umsdk/release' }
+        }
+    }
+
+    compile ('com.alibaba.android:vlayout:1.0.3@aar') {
+        transitive = true
+    }
+
+//九宫格图片控件
+    implementation 'com.jaeger.ninegridimageview:library:1.0.2'
 
 
-    implementation 'org.greenrobot:eventbus:3.1.1'//EventBus的基本用法
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+
+    implementation 'com.jaeger.ninegridimageview:library:1.0.2'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'q.rorbin:VerticalTabLayout:1.2.5'
 }

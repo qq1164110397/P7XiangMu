@@ -46,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
         goufWuFragment = new ShoppingCarFragment();
         myFragment = new MyFragment();
 
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame,homeFragment)
+                .commit();
+
         radioHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
